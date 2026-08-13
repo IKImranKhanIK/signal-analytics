@@ -27,8 +27,8 @@ async function init(onProgress?: (msg: string) => void): Promise<duckdb.AsyncDuc
   onProgress?.('Downloading dataset (~1.3 MB parquet)')
   const base = import.meta.env.BASE_URL
   const [orders, contacts] = await Promise.all([
-    fetch(`${base}data/orders.parquet`).then((r) => r.arrayBuffer()),
-    fetch(`${base}data/contacts.parquet`).then((r) => r.arrayBuffer()),
+    fetch(`${base}data/orders.parquet?v=${__BUILD_ID__}`).then((r) => r.arrayBuffer()),
+    fetch(`${base}data/contacts.parquet?v=${__BUILD_ID__}`).then((r) => r.arrayBuffer()),
   ])
   await db.registerFileBuffer('orders.parquet', new Uint8Array(orders))
   await db.registerFileBuffer('contacts.parquet', new Uint8Array(contacts))

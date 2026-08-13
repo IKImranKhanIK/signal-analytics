@@ -10,6 +10,12 @@ trace back to what the fraud rules did.**
 No server, no API keys — a Python pipeline generates the data, and DuckDB-WASM runs
 real SQL in your browser.
 
+![Overview](docs/screenshots/overview.png)
+
+| Pattern explorer | Decisioning simulator | SQL workbench |
+|---|---|---|
+| ![Patterns](docs/screenshots/patterns.png) | ![Simulator](docs/screenshots/simulator.png) | ![Workbench](docs/screenshots/workbench.png) |
+
 ## The 90-second tour
 
 1. **Overview** — KPI row and the first finding: the rules catch 95% of card testing
