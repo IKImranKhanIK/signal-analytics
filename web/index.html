@@ -1,0 +1,19 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="./favicon.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Signal — fraud pattern analysis and contact attribution on a synthetic digital goods store. Every chart is a real SQL query." />
+    <title>Signal · Trust & Experience Analytics</title>
+    <script>
+      // Apply saved theme before first paint to avoid a flash.
+      const t = localStorage.getItem('signal-theme')
+      if (t === 'dark' || t === 'light') document.documentElement.dataset.theme = t
+    </script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>

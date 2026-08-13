@@ -111,6 +111,12 @@ cust_country = rng.choice(COUNTRIES, size=N_CUSTOMERS, p=COUNTRY_W)
 cust_devices = [_hex_ids("dev_", int(k)) for k in rng.choice([1, 1, 1, 2, 2, 3], N_CUSTOMERS)]
 cust_instruments = [_hex_ids("pi_", int(k), 10) for k in rng.choice([1, 1, 2, 2, 3], N_CUSTOMERS)]
 cust_paymethod = [PAY_METHODS[i] for i in rng.choice(len(PAY_METHODS), N_CUSTOMERS, p=PAY_W)]
+# Households: groups of 2-4 customers sharing one device (family computer,
+# shared tablet). These are the honest negatives for device-linkage rules.
+for _ in range(260):
+    shared_dev = _hex_ids("dev_", 1)[0]
+    for ci in rng.choice(N_CUSTOMERS, int(rng.integers(2, 5)), replace=False):
+        cust_devices[int(ci)].append(shared_dev)
 # Heavy-tailed activity propensity for one-off purchases.
 cust_weight = rng.gamma(0.9, 1.0, N_CUSTOMERS)
 cust_weight /= cust_weight.sum()
@@ -155,6 +161,8 @@ for ci in sub_custs:
     for m in range(months):
         ts = first + pd.Timedelta(days=int(30 * m + rng.integers(-2, 3)),
                                   seconds=int(rng.integers(0, 86_400)))
+        if ts < START:
+            ts = START + pd.Timedelta(seconds=int(rng.integers(0, 86_400)))
         if ts > END:
             break
         _legit_order(int(ci), ts, "subscription", tier,

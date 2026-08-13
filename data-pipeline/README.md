@@ -27,11 +27,12 @@ lognormal (multiplicative pricing psychology; long right tail, floor at $0.99/$2
 Gift cards use fixed denominations with mass concentrated at $25–$50.
 
 **Legit noise.** 3.5% auth declines, 4.5% refunds, 0.15% chargebacks, 3% IP/account
-country mismatch (travel), and two deliberate edge populations: IAP "whales" who binge
-4–8 purchases in an evening, and gift-card shoppers who buy several cards in one
-sitting, occasionally on a brand-new account. These exist so the fraud rules have
-*realistic* false positives — they are the customers the lockout contacts in the
-contact-attribution module come from.
+country mismatch (travel), and three deliberate edge populations: IAP "whales" who
+binge 4–8 purchases in an evening, gift-card shoppers who buy several cards in one
+sitting (occasionally on a brand-new account), and 260 households where 2–4 customers
+share a device. These exist so device-linkage and velocity rules have *realistic*
+false positives — they are the customers the lockout contacts in the
+contact-attribution module come from, and the honest negatives in ring detection.
 
 ## The six fraud archetypes
 
@@ -62,7 +63,7 @@ explainable decisioning, not model fitting.
 
 **Baseline production rule** (also the simulator defaults in the app): block when
 `risk_score ≥ 60` OR `orders_24h ≥ 6` OR (`amount ≥ $500` AND account ≤ 30 days old).
-Against ground truth it runs ~73% precision / ~59% recall with 486 false positives.
+Against ground truth it runs ~73% precision / ~61% recall with 494 false positives.
 
 ## Contacts
 

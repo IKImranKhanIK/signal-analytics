@@ -1,0 +1,36 @@
+{
+  "seed": 42,
+  "window": [
+    "2025-08-01 01:06:51",
+    "2026-07-31 23:59:59"
+  ],
+  "orders": 25000,
+  "contacts": 8000,
+  "fraud_orders": 2219,
+  "baseline": {
+    "risk_threshold": 60,
+    "velocity_threshold": 6,
+    "amount_threshold": 500
+  },
+  "weights": {
+    "f_velocity": 3.4,
+    "f_device_declines": 2.8,
+    "f_ato_signature": 2.9,
+    "f_shared_device": 2.3,
+    "f_payment_entropy": 1.9,
+    "f_refund_history": 2.2,
+    "f_promo_ring": 1.7,
+    "f_micro_amount": 1.6,
+    "f_geo_mismatch": 1.5,
+    "f_giftcard_high": 1.3,
+    "f_new_account": 1.1,
+    "f_prepaid": 0.9
+  },
+  "intercept": -4.9,
+  "baseline_confusion": {
+    "true_positives": 1352,
+    "false_positives": 494,
+    "false_negatives": 867,
+    "true_negatives": 22287
+  }
+}
