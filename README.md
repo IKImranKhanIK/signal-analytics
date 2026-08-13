@@ -5,7 +5,7 @@ two sides of the same customer. Built on a fully synthetic digital-goods store:
 **25,000 orders with six injected fraud archetypes, and 8,000 support contacts that
 trace back to what the fraud rules did.**
 
-**Live demo:** GitHub Pages · Vercel *(links added on deploy)*
+**Live demo:** [ikimrankhanik.github.io/signal-analytics](https://ikimrankhanik.github.io/signal-analytics/) · Vercel *(import the repo in the Vercel dashboard — `vercel.json` is preconfigured)*
 
 No server, no API keys — a Python pipeline generates the data, and DuckDB-WASM runs
 real SQL in your browser.
