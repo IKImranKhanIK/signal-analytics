@@ -10,7 +10,7 @@ export const THE_RING: CaseFile = {
   id: 'the-ring',
   title: 'The ring',
   tagline:
-    'Some devices place orders for four, five, seven different accounts. Some are fraud rings. Some are families sharing an iPad. Build the features that tell them apart — then check yourself against ground truth.',
+    'Some devices place orders for four, five, seven different accounts. Some are fraud rings. Some are families sharing a tablet. Build the features that tell them apart — then check yourself against ground truth.',
   difficulty: 'intermediate',
   minutes: 40,
   intro:
