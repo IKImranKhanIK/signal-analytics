@@ -202,6 +202,21 @@ FROM contacts
 GROUP BY 1
 ORDER BY manual_contacts DESC`
 
+/** Deflection quality: does a bot resolution stick as well as a human one? */
+export const DEFLECTION_QUALITY = `SELECT
+  contact_reason,
+  count(*) FILTER (WHERE automated_resolution)            AS bot_contacts,
+  round(100.0 * avg(repeat_contact::INT)
+    FILTER (WHERE automated_resolution), 1)               AS repeat_after_bot_pct,
+  round(100.0 * avg(repeat_contact::INT)
+    FILTER (WHERE NOT automated_resolution), 1)           AS repeat_after_agent_pct,
+  round(100.0 * avg(repeat_contact::INT) FILTER (WHERE automated_resolution)
+      - 100.0 * avg(repeat_contact::INT) FILTER (WHERE NOT automated_resolution), 1) AS delta_pts
+FROM contacts
+GROUP BY 1
+HAVING count(*) FILTER (WHERE automated_resolution) >= 50
+ORDER BY delta_pts DESC`
+
 export const WEEKLY_ANOMALY = `WITH weekly AS (
   SELECT date_trunc('week', contact_ts) AS week, count(*) AS contacts
   FROM contacts

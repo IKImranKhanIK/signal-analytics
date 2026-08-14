@@ -1,10 +1,28 @@
 import { useMemo } from 'react'
+import {
+  Bar,
+  BarChart,
+  CartesianGrid,
+  ResponsiveContainer,
+  Tooltip,
+  XAxis,
+  YAxis,
+} from 'recharts'
 import { ChartCard } from '../components/ChartCard'
 import { PageHeader } from '../components/Layout'
 import { Memo } from '../components/Memo'
+import { AXIS_PROPS, defaultTooltip } from '../components/charts'
 import { useRows } from '../hooks/useQuery'
 import { fmtDuration, fmtInt, fmtPct, titleCase } from '../lib/format'
-import { AUTOMATION_CANDIDATES } from '../lib/queries'
+import { AUTOMATION_CANDIDATES, DEFLECTION_QUALITY } from '../lib/queries'
+
+type Quality = {
+  contact_reason: string
+  bot_contacts: number
+  repeat_after_bot_pct: number
+  repeat_after_agent_pct: number
+  delta_pts: number
+}
 
 type Candidate = {
   contact_reason: string
@@ -31,6 +49,7 @@ const FIX_THE_CAUSE = new Set(['account_locked', 'checkout_error', 'promo_not_ap
 
 export function Automation() {
   const { rows } = useRows<Candidate>(AUTOMATION_CANDIDATES)
+  const { rows: quality } = useRows<Quality>(DEFLECTION_QUALITY)
 
   const ranked = useMemo(
     () =>
@@ -95,6 +114,37 @@ export function Automation() {
         </div>
       </ChartCard>
 
+      <ChartCard
+        title="Deflection quality: does a bot resolution stick?"
+        subtitle="Repeat-contact rate after an automated resolution vs after a human one, per reason (reasons with 50+ bot contacts). A deflection that generates a second contact isn't a deflection — it's a delay."
+        sql={DEFLECTION_QUALITY}
+        footnote="Two findings hide in here: the refund-status bot “resolves” without giving a definitive date, so nearly half its customers come back (48% vs 30% after an agent) — while the download bot genuinely fixes the problem and beats humans (6% vs 10%). Deflection rate alone would call both bots successful."
+      >
+        <ResponsiveContainer width="100%" height={280}>
+          <BarChart data={quality} margin={{ top: 8, right: 8, bottom: 44, left: -14 }}>
+            <CartesianGrid vertical={false} />
+            <XAxis
+              dataKey="contact_reason"
+              {...AXIS_PROPS}
+              interval={0}
+              angle={-38}
+              textAnchor="end"
+              height={70}
+              tick={{ fontSize: 10.5 }}
+              tickFormatter={(r: string) => titleCase(r)}
+            />
+            <YAxis {...AXIS_PROPS} unit="%" />
+            <Tooltip content={defaultTooltip((_k, v) => fmtPct(v))} cursor={{ fill: 'var(--grid)', opacity: 0.4 }} />
+            <Bar dataKey="repeat_after_bot_pct" name="Repeat after bot" fill="var(--s1)" radius={[4, 4, 0, 0]} maxBarSize={18} />
+            <Bar dataKey="repeat_after_agent_pct" name="Repeat after agent" fill="var(--s2)" radius={[4, 4, 0, 0]} maxBarSize={18} />
+          </BarChart>
+        </ResponsiveContainer>
+        <div className="mt-1 flex gap-4 text-[12px] text-ink-2">
+          <span><span className="mr-1.5 inline-block h-2 w-2 rounded-full bg-[var(--s1)]" />Repeat after bot</span>
+          <span><span className="mr-1.5 inline-block h-2 w-2 rounded-full bg-[var(--s2)]" />Repeat after agent</span>
+        </div>
+      </ChartCard>
+
       <Memo
         title="Where automation should go next"
         intro={`Assuming a well-built flow converts ~55% of a reason's deflectable manual volume (industry-plausible, stated as an assumption), the top ${target.length} candidates below are worth ≈ ${fmtInt(estReduction)} avoided agent contacts per year. The equally important output is the do-not-automate list.`}
@@ -102,7 +152,7 @@ export function Automation() {
           {
             title: 'Automate the resolvable middle: refunds, downloads, cancellations',
             evidence:
-              'Refund status (1,071 contacts, 41% automated, 31% repeat), how-to-download (1,227, 72%), and subscription cancel (841, 57%) are high-volume, low-complexity, and mostly informational. Refund status repeats because the bot answers without a definitive date — not because the question is hard.',
+              'Refund status (1,071 contacts, 41% automated, 37% repeat), how-to-download (1,227, 72%), and subscription cancel (841, 57%) are high-volume, low-complexity, and mostly informational. Refund status repeats because the bot answers without a definitive date, not because the question is hard — the deflection-quality chart above shows 48% of its bot resolutions bounce back vs 30% of agent ones.',
             impact: `≈ ${fmtInt(estReduction)} agent contacts avoided per year across the top candidates, at current volumes.`,
             action:
               'Ship order-linked status answers (refund ETA from the actual refund record, signed download re-delivery, self-serve cancellation with confirmation) rather than generic FAQ responses. Measure repeat-contact rate as the success metric, not deflection rate.',
