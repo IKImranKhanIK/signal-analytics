@@ -1,6 +1,7 @@
 import { useMemo, useState } from 'react'
 import {
   CartesianGrid,
+  ReferenceLine,
   ResponsiveContainer,
   Scatter,
   ScatterChart,
@@ -105,7 +106,10 @@ export function Patterns() {
     <div className="space-y-4">
       <PageHeader
         title="Pattern explorer"
-        lede="Each fraud archetype occupies a different region of the risk-score × order-value plane. Pick one to isolate it against a reproducible sample of legitimate traffic and read the investigation memo."
+        kicker="Module 01 · Fraud intelligence"
+        accent="var(--s1)"
+        question="What does each fraud scheme actually look like in the data — and can our features see it?"
+        lede="Each archetype occupies a different region of the risk-score × order-value plane, because each scheme has different economics. Pick one, see where it lives relative to legitimate traffic (gray), and read the investigation memo below the chart. The vertical line is the current blocking threshold — everything to its right gets stopped today."
       />
 
       <div className="flex flex-wrap gap-1.5">
@@ -169,6 +173,7 @@ export function Patterns() {
                 )
               }}
             />
+            <ReferenceLine x={60} stroke="var(--critical)" strokeDasharray="5 4" />
             <Scatter data={legit} fill="var(--muted)" fillOpacity={0.25} shape="circle" isAnimationActive={false} />
             <Scatter data={focus} fill={ARCHETYPE_COLOR[selected]} fillOpacity={0.8} isAnimationActive={false} />
           </ScatterChart>

@@ -124,11 +124,36 @@ export function Layout() {
   )
 }
 
-export function PageHeader({ title, lede }: { title: string; lede: string }) {
+export function PageHeader({
+  title,
+  lede,
+  kicker,
+  accent = 'var(--axis)',
+  question,
+}: {
+  title: string
+  lede: string
+  /** Module label, e.g. "Module 01 · Fraud intelligence". */
+  kicker?: string
+  /** Module accent color — gives each section a visual identity. */
+  accent?: string
+  /** The question this page exists to answer, stated outright. */
+  question?: string
+}) {
   return (
-    <header className="mb-6">
-      <h2 className="text-[22px] font-bold tracking-tight text-ink">{title}</h2>
-      <p className="mt-1.5 max-w-prose text-[14px] leading-relaxed text-ink-2">{lede}</p>
+    <header className="mb-6 border-l-[3px] pl-4" style={{ borderColor: accent }}>
+      {kicker && (
+        <p className="text-[11.5px] font-bold uppercase tracking-[0.12em]" style={{ color: accent }}>
+          {kicker}
+        </p>
+      )}
+      <h2 className="mt-0.5 text-[24px] font-bold tracking-tight text-ink">{title}</h2>
+      {question && (
+        <p className="mt-1.5 text-[14px] font-medium text-ink">
+          The question: <span className="italic">{question}</span>
+        </p>
+      )}
+      <p className="mt-1.5 max-w-prose text-[13.5px] leading-relaxed text-ink-2">{lede}</p>
     </header>
   )
 }

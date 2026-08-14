@@ -34,6 +34,8 @@ export function Workbench() {
     <div className="space-y-4">
       <PageHeader
         title="SQL workbench"
+        kicker="Workbench · open access"
+        accent="var(--s7)"
         lede="A live DuckDB instance with the full dataset — the same one every chart queries. Run anything; nothing leaves your browser. Cmd/Ctrl-Enter executes."
       />
 

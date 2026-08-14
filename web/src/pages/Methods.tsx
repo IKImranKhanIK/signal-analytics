@@ -22,6 +22,8 @@ export function Methods() {
     <div className="space-y-4">
       <PageHeader
         title="How this was built"
+        kicker="Workbench · methods & candor"
+        accent="var(--s7)"
         lede="The point of this project is the analyst workflow end to end: a reproducible Python pipeline, real SQL for every number on screen, and findings written as decisions rather than dashboards. Here is the architecture, and — just as deliberately — its limitations."
       />
 

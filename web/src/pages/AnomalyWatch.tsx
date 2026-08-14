@@ -46,6 +46,9 @@ export function AnomalyWatch() {
     <div className="space-y-4">
       <PageHeader
         title="Anomaly watch"
+        kicker="Module 02 · Contact attribution"
+        accent="var(--s2)"
+        question="When contact volume moves, how fast can we tell noise from incident — and name the cause?"
         lede="Weekly contact volume against an 8-week rolling mean, flagged at |z| ≥ 3 — all computed in SQL with window functions. Three weeks trip the alarm: two are what a naive z-score does with launch ramp and holiday seasonality, and one is a genuine incident. Click them and see which is which."
       />
 
@@ -53,6 +56,7 @@ export function AnomalyWatch() {
         title="Weekly contact volume vs rolling baseline"
         subtitle={`Solid line: weekly contacts. Dashed: trailing 8-week mean. Flagged points exceed ${Z_THRESHOLD} standard deviations — click one for the reason-level breakdown.`}
         sql={WEEKLY_ANOMALY}
+        takeaway="Three flags, one incident. The two small flags are the tax a naive z-score charges on growth and seasonality; the z = 35 monster in March is real. The skill being demonstrated isn't the alarm — it's the sixty seconds from alarm to the reason-level table below."
         footnote="The first eight weeks have no baseline yet (the window needs history) — an honest limitation of any rolling detector: it is blind at the start and slow to unlearn a shifted baseline."
       >
         <ResponsiveContainer width="100%" height={280}>

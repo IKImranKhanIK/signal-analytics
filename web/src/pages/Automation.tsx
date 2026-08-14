@@ -66,7 +66,10 @@ export function Automation() {
     <div className="space-y-4">
       <PageHeader
         title="Automation impact"
-        lede="Which contact reasons are genuinely good deflection candidates? Volume alone over-ranks broken flows that should be fixed, not deflected. The scoring here is transparent: manual volume, discounted by handle-time complexity and repeat-contact risk."
+        kicker="Module 02 · Contact attribution"
+        accent="var(--s2)"
+        question="Where should the next automation dollar go — and just as important, where should it not?"
+        lede="Volume alone over-ranks broken flows that should be fixed, not deflected. The scoring here is transparent — manual volume, discounted by handle-time complexity and repeat-contact risk — and the weights are stated so they can be argued with."
       />
 
       <ChartCard
@@ -118,7 +121,7 @@ export function Automation() {
         title="Deflection quality: does a bot resolution stick?"
         subtitle="Repeat-contact rate after an automated resolution vs after a human one, per reason (reasons with 50+ bot contacts). A deflection that generates a second contact isn't a deflection — it's a delay."
         sql={DEFLECTION_QUALITY}
-        footnote="Two findings hide in here: the refund-status bot “resolves” without giving a definitive date, so nearly half its customers come back (48% vs 30% after an agent) — while the download bot genuinely fixes the problem and beats humans (6% vs 10%). Deflection rate alone would call both bots successful."
+        takeaway="Deflection rate says both bots work. Repeat rate says otherwise: the refund bot's answers bounce back 48% of the time (vs 30% for agents) because it answers without a date, while the download bot genuinely fixes the problem and beats humans (6% vs 10%). Measure automation by whether the problem stays solved, not by whether a human was avoided."
       >
         <ResponsiveContainer width="100%" height={280}>
           <BarChart data={quality} margin={{ top: 8, right: 8, bottom: 44, left: -14 }}>

@@ -46,7 +46,10 @@ export function Journey() {
     <div className="space-y-4">
       <PageHeader
         title="Journey map"
-        lede="Where 8,000 support contacts land across the purchase journey, and how well automation holds at each stage. Volume alone is a bad prioritization signal — pair it with automation rate and handle time."
+        kicker="Module 02 · Contact attribution"
+        accent="var(--s2)"
+        question="Where in the customer journey does support demand come from, and where does automation actually hold?"
+        lede="Where 8,000 support contacts land across the purchase journey, and how well automation holds at each stage. Volume alone is a bad prioritization signal — pair it with automation rate and handle time and the picture inverts."
       />
 
       <div className="grid grid-cols-2 gap-3 lg:grid-cols-4">
@@ -74,7 +77,7 @@ export function Journey() {
         title="Stage volume and automation coverage"
         subtitle="Contacts per journey stage; bar shade shows how much automation currently absorbs."
         sql={JOURNEY_STAGES}
-        footnote="Checkout and refund are where automation is weakest — and both are dominated by reasons the store causes itself: payment declines, promo errors, and fraud-rule lockouts. See Root cause."
+        takeaway="Post-purchase has the most contacts but the best automation. Checkout and refund are the opposite: lower volume, weakest automation, longest handling — because they are dominated by broken flows (declines, promo errors, fraud-rule lockouts), and bots can't resolve what's actually broken. Fix-the-flow beats train-the-bot at these two stages."
       >
         <ResponsiveContainer width="100%" height={220}>
           <BarChart data={stages} margin={{ top: 8, right: 8, bottom: 0, left: -10 }}>

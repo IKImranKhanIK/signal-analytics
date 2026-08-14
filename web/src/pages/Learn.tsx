@@ -8,6 +8,8 @@ export function Learn() {
     <div className="space-y-4">
       <PageHeader
         title="Investigations"
+        kicker="Learn · guided case files"
+        accent="var(--s3)"
         lede="Guided case files that teach the analyst workflow by doing it: form a question, write the SQL, read the evidence, quantify the impact, write the finding. Your queries run against the same live dataset as every chart in this app, and each step is checked against ground truth."
       />
 

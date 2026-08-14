@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom'
 import {
   Bar,
   BarChart,
@@ -5,6 +6,7 @@ import {
   Cell,
   Line,
   LineChart,
+  ReferenceArea,
   ResponsiveContainer,
   Tooltip,
   XAxis,
@@ -36,9 +38,51 @@ export function Overview() {
 
   return (
     <div className="space-y-4">
+      <section
+        className="rounded-2xl border border-line p-6 sm:p-8"
+        style={{
+          background:
+            'linear-gradient(120deg, color-mix(in srgb, var(--s1) 10%, var(--surface)), var(--surface) 55%, color-mix(in srgb, var(--s2) 7%, var(--surface)))',
+        }}
+      >
+        <p className="text-[11.5px] font-bold uppercase tracking-[0.14em] text-[var(--s1)]">
+          Signal · an analyst portfolio, running live in your browser
+        </p>
+        <h1 className="mt-2 max-w-[36rem] text-[26px] font-bold leading-tight tracking-tight text-ink sm:text-[30px]">
+          One store. Two lenses. Every fraud decision has a customer-experience price —
+          this app measures both sides.
+        </h1>
+        <p className="mt-3 max-w-[42rem] text-[14px] leading-relaxed text-ink-2">
+          A synthetic digital-goods store: 25,000 orders seeded with six fraud schemes, and 8,000
+          support contacts — including the ones our own fraud rules cause. Everything on every page
+          is a real SQL query running against an in-browser database; press{' '}
+          <span className="font-semibold text-ink">View SQL</span> on any chart to see it.
+        </p>
+        <div className="mt-5 flex flex-wrap gap-2">
+          {[
+            { to: '/simulator', label: 'Move a fraud threshold, watch the CX cost' },
+            { to: '/patterns', label: 'Read an investigation memo' },
+            { to: '/learn', label: 'Solve a case yourself' },
+            { to: '/sql', label: 'Query the data directly' },
+          ].map((t, i) => (
+            <Link
+              key={t.to}
+              to={t.to}
+              className="rounded-full border border-line bg-surface px-3.5 py-1.5 text-[12.5px] font-medium text-ink-2 transition-colors hover:border-[var(--s1)] hover:text-ink"
+            >
+              <span className="tnum mr-1.5 font-bold text-[var(--s1)]">{i + 1}</span>
+              {t.label}
+            </Link>
+          ))}
+        </div>
+      </section>
+
       <PageHeader
         title="Fraud intelligence · Overview"
-        lede="Twelve months of a synthetic digital-goods storefront: subscriptions, in-app purchases, downloads and gift cards. Ground-truth fraud labels exist because the data is generated — which lets every rule and score be judged honestly."
+        kicker="Module 01 · Fraud intelligence"
+        accent="var(--s1)"
+        question="How much fraud is there, what does it cost, and are the current rules pointed at the right part of it?"
+        lede="Twelve months of orders with ground-truth fraud labels — a luxury only synthetic data has, and what lets every rule on these pages be judged honestly instead of anecdotally."
       />
 
       <KpiRow>
@@ -69,10 +113,18 @@ export function Overview() {
           title="Fraud & chargeback rate by month"
           subtitle="Share of orders labeled fraud, and chargebacks as a share of approved orders."
           sql={MONTHLY_TREND}
+          takeaway="Fraud ran 11–14% through autumn 2025 — the shaded card-testing wave — then settled near 7%. The orange line lags the blue one by design: chargebacks are fraud's paper trail arriving weeks late, which is why teams that only watch chargebacks are always fighting the previous quarter's fraud."
         >
           <ResponsiveContainer width="100%" height={240}>
             <LineChart data={trend} margin={{ top: 8, right: 8, bottom: 0, left: -18 }}>
               <CartesianGrid vertical={false} />
+              <ReferenceArea
+                x1="2025-09"
+                x2="2025-11"
+                fill="var(--s1)"
+                fillOpacity={0.07}
+                label={{ value: 'card-testing wave', position: 'insideTop', fill: 'var(--muted)', fontSize: 10.5 }}
+              />
               <XAxis dataKey="month" {...AXIS_PROPS} tickFormatter={(m: string) => m.slice(2)} />
               <YAxis {...AXIS_PROPS} unit="%" />
               <Tooltip content={defaultTooltip((_k, v) => fmtPct(v, 2))} />
@@ -104,10 +156,18 @@ export function Overview() {
           title="Order volume by month"
           subtitle="Growth trend with a holiday-season peak — the denominator behind every rate."
           sql={MONTHLY_VOLUME}
+          takeaway="Volume grows ~60% across the year and spikes every December as gift cards peak. This is why every serious number on these pages is a rate, not a count — a moving denominator makes raw counts lie."
         >
           <ResponsiveContainer width="100%" height={240}>
             <BarChart data={volume} margin={{ top: 8, right: 8, bottom: 0, left: -10 }}>
               <CartesianGrid vertical={false} />
+              <ReferenceArea
+                x1="2025-12"
+                x2="2025-12"
+                fill="var(--s2)"
+                fillOpacity={0.1}
+                label={{ value: 'holiday peak', position: 'insideTop', fill: 'var(--muted)', fontSize: 10.5 }}
+              />
               <XAxis dataKey="month" {...AXIS_PROPS} tickFormatter={(m: string) => m.slice(2)} />
               <YAxis {...AXIS_PROPS} tickFormatter={(v: number) => fmtCompact(v)} />
               <Tooltip content={defaultTooltip((_k, v) => fmtInt(v))} cursor={{ fill: 'var(--grid)', opacity: 0.4 }} />
@@ -121,6 +181,7 @@ export function Overview() {
         title="Fraud mix by archetype"
         subtitle="Order counts tell one story; dollar exposure tells another. Card testing dominates volume, but laundering and account takeover carry the money."
         sql={ARCHETYPE_MIX}
+        takeaway="Card testing is 29% of fraud orders but 0.4% of the dollars; laundering and account takeover are ~90% of the dollars but under a third of the orders. Optimize the rules for the count column and you win the wrong war — which is exactly what the caught-by-rules column shows happening today."
         footnote="“Caught” = blocked by the current baseline rule, judged against ground truth. Friendly fraud is invisible at order time by construction — see the pattern explorer."
       >
         <ResponsiveContainer width="100%" height={260}>

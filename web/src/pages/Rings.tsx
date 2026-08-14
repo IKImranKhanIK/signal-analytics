@@ -73,7 +73,10 @@ export function Rings() {
     <div className="space-y-4">
       <PageHeader
         title="Ring detection"
-        lede="Fraud rarely happens one account at a time. Devices shared by several accounts are the cheapest linkage signal there is — one GROUP BY away. The pair-level version (a true self-join) is in the SQL Workbench examples."
+        kicker="Module 01 · Fraud intelligence"
+        accent="var(--s1)"
+        question="Which accounts are secretly the same operation — and which shared devices are just families?"
+        lede="Fraud rarely happens one account at a time: fake identities are cheap, but shared infrastructure is what makes a ring's economics work — and it leaves a join key. Devices shared by several accounts are the cheapest linkage signal there is, one GROUP BY away. The pair-level version (a true self-join) is in the SQL Workbench examples."
       />
 
       <div className="grid gap-4 lg:grid-cols-[1fr_340px]">
@@ -81,6 +84,7 @@ export function Rings() {
           title="Devices hosting 3+ accounts"
           subtitle="Every device fingerprint shared by at least three customer accounts, with volume and ground-truth fraud share."
           sql={RING_DEVICES}
+          takeaway="Account count finds the clusters; instruments and account age tell you what they are. The 100%-fraud rows cycle many payment cards through fresh accounts — the sub-40% rows are households: few instruments, aged accounts. Same volume signal, opposite conclusion."
           footnote="Not every shared device is a ring: the sub-40% fraud rows toward the bottom are shared family computers and the occasional cyber-café pattern — which is exactly why account-per-device count alone should feed a score, not a hard block."
         >
           <div className="overflow-x-auto">

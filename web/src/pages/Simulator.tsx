@@ -98,7 +98,10 @@ export function Simulator() {
     <div className="space-y-4">
       <PageHeader
         title="Mass decisioning simulator"
-        lede="The whole trade-off on three sliders. Every change re-runs a live SQL query over all 25,000 orders and scores the rule against ground truth — including the support contacts the false positives will generate."
+        kicker="Module 01 · Fraud intelligence"
+        accent="var(--s1)"
+        question="If we tighten the rules, what do we gain in caught fraud — and what do we pay in blocked customers and support load?"
+        lede="The whole trade-off on three sliders. Every change re-runs a live SQL query over all 25,000 orders and scores the rule against ground truth — including the support contacts the false positives will generate. Try dragging risk down to 40 and watch all four numbers move against each other."
       />
 
       <div className="grid gap-4 lg:grid-cols-[300px_1fr]">

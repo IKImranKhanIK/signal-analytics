@@ -6,6 +6,8 @@ type Props = {
   subtitle?: string
   sql: string
   children: ReactNode
+  /** The one-sentence conclusion a reader should leave with. Shown emphasized. */
+  takeaway?: ReactNode
   footnote?: string
 }
 
@@ -13,7 +15,7 @@ type Props = {
  * Every chart lives in one of these. The "View SQL" toggle reveals the exact
  * query that produced the chart — the same string that ran against DuckDB.
  */
-export function ChartCard({ title, subtitle, sql, children, footnote }: Props) {
+export function ChartCard({ title, subtitle, sql, children, takeaway, footnote }: Props) {
   const [showSql, setShowSql] = useState(false)
   return (
     <section className="rounded-xl border border-line bg-surface p-4 sm:p-5">
@@ -39,6 +41,12 @@ export function ChartCard({ title, subtitle, sql, children, footnote }: Props) {
         </div>
       )}
       {children}
+      {takeaway && (
+        <p className="mt-3 rounded-lg border-l-[3px] border-[var(--s1)] bg-[color-mix(in_srgb,var(--s1)_7%,transparent)] px-3.5 py-2.5 text-[13px] leading-relaxed text-ink">
+          <span className="font-bold text-[var(--s1)]">Takeaway&ensp;</span>
+          {takeaway}
+        </p>
+      )}
       {footnote && <p className="mt-3 text-[12px] leading-relaxed text-muted">{footnote}</p>}
     </section>
   )
