@@ -21,6 +21,10 @@ const NAV: { group: string; items: { to: string; label: string }[] }[] = [
     ],
   },
   {
+    group: 'Learn',
+    items: [{ to: '/learn', label: 'Investigations' }],
+  },
+  {
     group: 'Workbench',
     items: [
       { to: '/sql', label: 'SQL workbench' },

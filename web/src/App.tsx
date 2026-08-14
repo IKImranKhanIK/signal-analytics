@@ -3,6 +3,8 @@ import { Layout } from './components/Layout'
 import { DbGate } from './components/Loading'
 import { AnomalyWatch } from './pages/AnomalyWatch'
 import { Automation } from './pages/Automation'
+import { CaseFilePage } from './pages/CaseFile'
+import { Learn } from './pages/Learn'
 import { Journey } from './pages/Journey'
 import { Methods } from './pages/Methods'
 import { Overview } from './pages/Overview'
@@ -26,6 +28,8 @@ export default function App() {
             <Route path="root-cause" element={<RootCause />} />
             <Route path="automation" element={<Automation />} />
             <Route path="anomalies" element={<AnomalyWatch />} />
+            <Route path="learn" element={<Learn />} />
+            <Route path="learn/:caseId" element={<CaseFilePage />} />
             <Route path="sql" element={<Workbench />} />
             <Route path="methods" element={<Methods />} />
             <Route path="*" element={<Overview />} />
