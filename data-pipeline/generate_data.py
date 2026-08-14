@@ -576,8 +576,19 @@ for (reason, (stage, _w, auto_rate, chan_bias, repeat_rate)), n in zip(REASONS.i
         else:
             cust, oid = str(rng.choice(customer_ids)), None
             ts = _sample_ts(1)[0]
+        automated = rng.random() < auto_rate
+        channel = _channel(chan_bias)
+        # Deflection quality differs by reason: the refund-status bot answers
+        # without a definitive date, so customers come back; the download bot
+        # actually resolves (re-sends the link), so they don't. Same draw
+        # sequence as before — only the threshold moves.
+        adj = repeat_rate
+        if automated and reason == "refund_status":
+            adj = repeat_rate * 1.5
+        elif automated and reason == "how_to_download":
+            adj = repeat_rate * 0.55
         _add_contact(reason, stage, min(ts, END), cust, oid,
-                     rng.random() < auto_rate, _channel(chan_bias), rng.random() < repeat_rate)
+                     automated, channel, rng.random() < adj)
 
 contacts = pd.DataFrame(contact_rows)
 contacts = contacts.sort_values("contact_ts", kind="mergesort").reset_index(drop=True)
