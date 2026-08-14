@@ -12,9 +12,9 @@ real SQL in your browser.
 
 ![Overview](docs/screenshots/overview.png)
 
-| Pattern explorer | Decisioning simulator | SQL workbench |
-|---|---|---|
-| ![Patterns](docs/screenshots/patterns.png) | ![Simulator](docs/screenshots/simulator.png) | ![Workbench](docs/screenshots/workbench.png) |
+| Pattern explorer | Decisioning simulator | SQL workbench | Investigations |
+|---|---|---|---|
+| ![Patterns](docs/screenshots/patterns.png) | ![Simulator](docs/screenshots/simulator.png) | ![Workbench](docs/screenshots/workbench.png) | ![Investigation](docs/screenshots/investigation.png) |
 
 ## The 90-second tour
 
@@ -33,6 +33,22 @@ real SQL in your browser.
 5. **Anomaly watch** flags three weeks; two are what naive z-scores do to growth and
    holidays, one is a seeded five-day promo incident. Click them and see which is
    which from the reason-level breakdown.
+6. Or solve that incident yourself: **Investigations → The March spike** is a guided
+   case file — six SQL steps from "the volume looks weird" to a documented root
+   cause, each checked live against the dataset.
+
+## Learn by investigating
+
+The **Investigations** section turns the dataset into a teaching instrument. Case
+file #1, *The March spike*, walks through a complete incident investigation the way
+an analyst actually works it: scope the data → isolate the anomaly → make it
+statistically honest (z-scores) → drill to the category → read the raw evidence →
+quantify the impact → write the finding. Your SQL runs against the live DuckDB
+instance and each step is validated against ground truth (order-insensitive result
+comparison with numeric tolerance; range checks where multiple defensible methods
+disagree). Hints escalate to full solutions, progress persists locally, and the case
+ends with a model findings memo — because the memo, not the query, is the deliverable
+of a real investigation.
 
 ## Architecture
 

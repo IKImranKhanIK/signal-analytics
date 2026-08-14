@@ -12,6 +12,7 @@ const SHOTS = [
   { route: '#/patterns', name: 'patterns', theme: 'dark' },
   { route: '#/simulator', name: 'simulator', theme: 'dark' },
   { route: '#/sql', name: 'workbench', theme: 'light' },
+  { route: '#/learn/march-spike', name: 'investigation', theme: 'light' },
 ]
 
 const browser = await puppeteer.launch({
