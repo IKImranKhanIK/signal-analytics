@@ -216,8 +216,8 @@ function StepCard({
 export function CaseFilePage() {
   const { caseId } = useParams()
   const caseFile = CASE_FILES.find((c) => c.id === caseId) ?? CASE_FILES[0]
-  const [, forceRender] = useState(0)
-  const bump = useCallback(() => forceRender((n) => n + 1), [])
+  const [version, setVersion] = useState(0)
+  const bump = useCallback(() => setVersion((n) => n + 1), [])
 
   const doneCount = useMemo(() => {
     return caseFile.steps.filter((s) => {
@@ -225,7 +225,7 @@ export function CaseFilePage() {
       return p.passed || p.revealed
     }).length
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [caseFile, bump])
+  }, [caseFile, version])
 
   useEffect(() => {
     document.title = `${caseFile.title} · Signal`
