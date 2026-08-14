@@ -97,6 +97,44 @@ export function Methods() {
       </section>
 
       <section className="rounded-xl border border-line bg-surface p-5 text-[13.5px] leading-relaxed text-ink-2">
+        <h3 className="text-[15px] font-semibold text-ink">Where this hands off to machine learning</h3>
+        <p className="mt-2 max-w-prose">
+          The transparent rule score is deliberately the *floor*, not the ceiling — and knowing where
+          it stops is part of the analysis. If this were handed to an ML team tomorrow, the package
+          is already sitting in this repo:
+        </p>
+        <ul className="mt-2 max-w-prose list-disc space-y-2 pl-5">
+          <li>
+            <span className="font-medium text-ink">A labeled dataset with lineage:</span> 25k orders
+            with ground-truth labels, plus the generator that produced them — so class balance,
+            leakage risks, and label caveats are inspectable rather than tribal knowledge.
+          </li>
+          <li>
+            <span className="font-medium text-ink">Feature definitions with rationale:</span> every
+            engineered feature (velocity windows, device entropy, linkage counts) is documented with
+            the fraud economics it encodes — the analyst's main contribution to a modeling effort,
+            since features built from how the abuse works transfer; correlations don't.
+          </li>
+          <li>
+            <span className="font-medium text-ink">An evaluation harness with a business axis:</span>{' '}
+            the decisioning simulator is precision/recall against dollars and support contacts, not
+            abstract AUC — any candidate model can be dropped onto the same axes the rules use today.
+          </li>
+          <li>
+            <span className="font-medium text-ink">A map of where rules fail:</span> the score catches
+            velocity-and-linkage fraud (~95% of card testing) and structurally misses longitudinal
+            patterns — refund abuse (1.4%) and friendly fraud (0%). That is the model's mandate in one
+            sentence: learn the patterns that only exist across orders, not within one.
+          </li>
+        </ul>
+        <p className="mt-2 max-w-prose">
+          What stays with the analyst either way: threshold policy, the review-queue design, the
+          false-positive budget, and monitoring — a model changes who computes the score, not who
+          owns the decision.
+        </p>
+      </section>
+
+      <section className="rounded-xl border border-line bg-surface p-5 text-[13.5px] leading-relaxed text-ink-2">
         <h3 className="text-[15px] font-semibold text-ink">What a production version needs</h3>
         <ul className="mt-2 max-w-prose list-disc space-y-2 pl-5">
           <li>
