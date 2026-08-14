@@ -141,4 +141,3 @@ export const MARCH_SPIKE: CaseFile = {
   },
 }
 
-export const CASE_FILES: CaseFile[] = [MARCH_SPIKE]

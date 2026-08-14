@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom'
 import { PageHeader } from '../components/Layout'
-import { CASE_FILES } from '../lib/learn/march-spike'
+import { CASE_FILES } from '../lib/learn'
 import { caseCompletion } from '../lib/learn/progress'
 
 export function Learn() {
@@ -36,11 +36,10 @@ export function Learn() {
       <section className="rounded-xl border border-dashed border-line p-5 text-[13.5px] leading-relaxed text-muted">
         <p className="font-medium text-ink-2">More case files planned</p>
         <p className="mt-1 max-w-prose">
-          “The ring” (device-linkage analysis with self-joins, separating fraud rings from innocent
-          households) and “Who's burning the promos?” (cohort thinking and abuse economics). The
-          framework and answer-checking are already built — each new case is pure content. Until
-          then, the <Link to="/sql" className="font-medium text-[var(--s1)] hover:underline">SQL workbench</Link>{' '}
-          has six worked examples of increasing sophistication.
+          “Who's burning the promos?” (cohort thinking and abuse economics) is next. The framework
+          and answer-checking are already built — each new case is pure content. In the meantime,
+          the <Link to="/sql" className="font-medium text-[var(--s1)] hover:underline">SQL workbench</Link>{' '}
+          has six worked examples of increasing sophistication to explore freely.
         </p>
       </section>
     </div>

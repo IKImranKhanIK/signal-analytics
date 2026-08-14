@@ -4,7 +4,7 @@ import { PageHeader } from '../components/Layout'
 import { SqlBlock } from '../components/SqlBlock'
 import { runQuery, type QueryResult } from '../lib/db'
 import { compareRange, compareRows, compareText, type Verdict } from '../lib/learn/compare'
-import { CASE_FILES } from '../lib/learn/march-spike'
+import { CASE_FILES } from '../lib/learn'
 import { getProgress, resetCase, updateProgress, type StepProgress } from '../lib/learn/progress'
 import type { Step } from '../lib/learn/types'
 
@@ -40,10 +40,11 @@ function ResultTable({ result }: { result: QueryResult }) {
 }
 
 function StepCard({
-  step, index, caseId, unlocked, onPassed,
+  step, index, total, caseId, unlocked, onPassed,
 }: {
   step: Step
   index: number
+  total: number
   caseId: string
   unlocked: boolean
   onPassed: () => void
@@ -106,7 +107,7 @@ function StepCard({
       <header className="flex items-start justify-between gap-3">
         <div>
           <p className="text-[12px] font-semibold uppercase tracking-wider text-muted">
-            Step {index + 1} of 6 · {step.teaches}
+            Step {index + 1} of {total} · {step.teaches}
           </p>
           <h3 className="mt-0.5 text-[16px] font-semibold text-ink">
             {step.title} {done && <span className="text-[var(--good)]">✓</span>}
@@ -264,6 +265,7 @@ export function CaseFilePage() {
           key={step.id}
           step={step}
           index={i}
+          total={caseFile.steps.length}
           caseId={caseFile.id}
           unlocked={i <= doneCount}
           onPassed={bump}
