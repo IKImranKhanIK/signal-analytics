@@ -39,16 +39,22 @@ real SQL in your browser.
 
 ## Learn by investigating
 
-The **Investigations** section turns the dataset into a teaching instrument. Case
-file #1, *The March spike*, walks through a complete incident investigation the way
-an analyst actually works it: scope the data → isolate the anomaly → make it
-statistically honest (z-scores) → drill to the category → read the raw evidence →
-quantify the impact → write the finding. Your SQL runs against the live DuckDB
-instance and each step is validated against ground truth (order-insensitive result
-comparison with numeric tolerance; range checks where multiple defensible methods
-disagree). Hints escalate to full solutions, progress persists locally, and the case
-ends with a model findings memo — because the memo, not the query, is the deliverable
-of a real investigation.
+The **Investigations** section turns the dataset into a teaching instrument. Two
+guided case files so far, each ending in a model findings memo — because the memo,
+not the query, is the deliverable of a real investigation:
+
+- **The March spike** (beginner): a complete incident investigation — scope the data
+  → isolate the anomaly → make it statistically honest (z-scores) → drill to the
+  category → read the raw evidence → quantify the impact → write the finding.
+- **The ring** (intermediate): device-linkage analysis with self-joins — enumerate
+  linked account pairs, engineer label-free suspicion features (instrument cycling,
+  fresh accounts), draw a decision line, and only then grade yourself against ground
+  truth without harming the innocent-household false-positive case.
+
+Your SQL runs against the live DuckDB instance and each step is validated against
+ground truth (order-insensitive result comparison with numeric tolerance; range
+checks where multiple defensible methods disagree). Hints escalate to full
+solutions, and progress persists locally.
 
 ## Architecture
 

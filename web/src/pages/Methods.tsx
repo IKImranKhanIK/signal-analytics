@@ -99,7 +99,7 @@ export function Methods() {
       <section className="rounded-xl border border-line bg-surface p-5 text-[13.5px] leading-relaxed text-ink-2">
         <h3 className="text-[15px] font-semibold text-ink">Where this hands off to machine learning</h3>
         <p className="mt-2 max-w-prose">
-          The transparent rule score is deliberately the *floor*, not the ceiling — and knowing where
+          The transparent rule score is deliberately the floor, not the ceiling — and knowing where
           it stops is part of the analysis. If this were handed to an ML team tomorrow, the package
           is already sitting in this repo:
         </p>
